@@ -1,10 +1,14 @@
-ISO SOURCE :
+ISO SOURCE :<br />
+https://www.debian.org/CD/netinst/ <br />
+https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-netinst.iso<br />
 
-https://www.debian.org/CD/netinst/
+see subject in subject_ressources ! <br />
 
-https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-netinst.iso
+PACKAGES INSTALLED & CONFIG IN VM : <br />
+1. apt-get install sudo <br />
+2. add igradea to sudo and root groups <br />
+3. sudo apt-get install net-tools <br />
 
-see subject in subject_ressources !
 
 TIPS FOR QUESTIONS : <br />
 
