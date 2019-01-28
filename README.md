@@ -5,10 +5,13 @@ https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-net
 see subject in subject_ressources ! <br />
 
 PACKAGES INSTALLED & CONFIG IN VM : <br />
-1. apt-get install sudo <br />
-2. add igradea to sudo and root groups <br />
-3. sudo apt-get install net-tools <br />
-
+1. server : apt-get install sudo <br />
+2. server : add igradea to sudo and root groups <br />
+3. server : sudo apt-get install net-tools <br />
+4. client : <br />
+	- ssh-keygen -f ~/.ssh/id_rsa_rs1 -t rsa -b 4096 <br />
+	- ssh-copy-id -i ~/.ssh/id_rsa_rs1.pub user@host
+5. server : sudo apt-get install ufw <br />
 
 TIPS FOR QUESTIONS : <br />
 
