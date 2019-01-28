@@ -17,7 +17,7 @@ ssh configuration file :<br />
 /etc/ssh/sshd_config<br />
 
 => SERVICES<br />
-script for restarting services :<br />
+script for restarting networking services :<br />
 /etc/init.d/networking restart <br />
 all services are located in /etc/init.d<br />
 
