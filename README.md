@@ -4,10 +4,10 @@ https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-net
 
 see subject in subject_ressources ! <br />
 
-PACKAGES INSTALLED & CONFIG IN VM : <br />
+WORKFLOW (packages installed, VM config) : <br />
 1. server : apt-get install sudo <br />
 2. server : add igradea to sudo and root groups <br />
-3. server : sudo apt-get install net-tools <br />
+3. server : for static ip, modify /etc/network/interface + restart networking services
 4. client : <br />
 	- ssh-keygen -f ~/.ssh/id_rsa_rs1 -t rsa -b 4096 <br />
 	- ssh-copy-id -i ~/.ssh/id_rsa_rs1.pub user@host
