@@ -11,7 +11,7 @@ WORKFLOW (packages installed, VM config) : <br />
 4. client : <br />
 	- ssh-keygen -f ~/.ssh/id_rsa_rs1 -t rsa -b 4096 <br />
 	- ssh-copy-id -i ~/.ssh/id_rsa_rs1.pub user@host
-5. server : sudo apt-get install ufw <br />
+5. server : sudo apt-get update && sudo apt-get install ufw <br />
 
 TIPS FOR QUESTIONS : <br />
 
@@ -35,3 +35,9 @@ K = for killing service<br />
 S = for starting service<br />
 number = sequence order for start or kill<br />
 symbolic link to the service in /etc/init.d<br />
+
+=> FIREWALL & PORT SCANNING
+sudo ufw enable
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow in 40/tcp (this is because ssh is configured on port 40 and not 22)
