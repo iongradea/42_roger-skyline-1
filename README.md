@@ -6,25 +6,25 @@ https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-net
 
 see subject in subject_ressources !
 
-TIPS FOR QUESTIONS : 
+TIPS FOR QUESTIONS : <br />
 
-=> DHCP
-network configuration file :
-/etc/network/interfaces
+=> DHCP<br />
+network configuration file :<br />
+/etc/network/interfaces<br />
 
-=> SSH
-ssh configuration file :
-/etc/ssh/sshd_config
+=> SSH<br />
+ssh configuration file :<br />
+/etc/ssh/sshd_config<br />
 
-=> SERVICES
-script for restarting services :
-/etc/init.d/networking restart 
-all services are located in /etc/init.d
+=> SERVICES<br />
+script for restarting services :<br />
+/etc/init.d/networking restart <br />
+all services are located in /etc/init.d<br />
 
-=> BOOT SERVICES
-script for starting services or killing them depending on runlevls :
-/etc/rc*/*
-K = for killing service
-S = for starting service
-number = sequence order for start or kill
-symbolic link to the service in /etc/init.d
+=> BOOT SERVICES<br />
+script for starting services or killing them depending on runlevls :<br />
+/etc/rc*/*<br />
+K = for killing service<br />
+S = for starting service<br />
+number = sequence order for start or kill<br />
+symbolic link to the service in /etc/init.d<br />
