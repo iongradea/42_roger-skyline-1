@@ -10,9 +10,8 @@ WORKFLOW (packages installed, VM config) : <br />
 3. server : for static ip, modify /etc/network/interface + restart networking services
 4. client : <br />
 	- ssh-keygen -f ~/.ssh/id_rsa_rs1 -t rsa -b 4096 <br />
-	- ssh-copy-id -i ~/.ssh/id_rsa_rs1.pub user@host
-5. server : sudo apt-get update && sudo apt-get install ufw <br />
-	- see firewall, ddos <br />
+	- ssh-copy-id -i ~/.ssh/id_rsa_rs1.pub user@host <br />
+5. server : iptables <br />
 
 TIPS FOR QUESTIONS : <br />
 
@@ -39,23 +38,17 @@ S = for starting service<br />
 number = sequence order for start or kill<br />
 symbolic link to the service in /etc/init.d<br />
 
-=> FIREWALL, DDOS <br />
-- sudo ufw enable <br />
-- sudo ufw default deny incoming <br />
-- sudo ufw default allow outgoing <br />
-- sudo ufw allow in 40/tcp (this is because ssh is configured on port 40 and not 22) <br />
-- sudo limit 40/tcp (rules changed with LIMIT IN) <br />
-other useful command : <br />
-- sudo ufw status verbose <br />
-- sudo ufw status numberer (to remove rules) <br />
-- sudo iptables -L | grep ufw-user (iptables lists all rules)
+=> FIREWALL, DDOS, PORT SCANNING : <br />
+iptables -P INPUT DROP <br />
+iptables -P FORWARD DROP <br />
+sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT <br />
+iptables -A INPUT -p tcp --dport 40 -j ACCEPT <br />
 
-=> PORT SCANNING : <br />
+Sources docs :<br />
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-iptables-on-ubuntu-14-04 <br />
+https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands <br />
+https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture <br />
+https://serverfault.com/questions/410604/iptables-rules-to-counter-the-most-common-dos-attacks <br />
 
-Sources docs :
-https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-iptables-on-ubuntu-14-04
-https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands
-https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture
-
-to remove all ufw chains and rules :
-https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1
+to remove all ufw chains and rules : <br />
+https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1 <br />
