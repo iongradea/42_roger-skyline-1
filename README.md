@@ -48,7 +48,7 @@ symbolic link to the service in /etc/init.d<br />
 other useful command : <br />
 - sudo ufw status verbose <br />
 - sudo ufw status numberer (to remove rules) <br />
-- sudo iptables | grep ufw-user (iptables lists all rules)
+- sudo iptables -L | grep ufw-user (iptables lists all rules)
 
 => PORT SCANNING : <br />
 
