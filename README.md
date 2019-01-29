@@ -52,3 +52,10 @@ other useful command : <br />
 
 => PORT SCANNING : <br />
 
+Sources docs :
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-iptables-on-ubuntu-14-04
+https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands
+https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture
+
+to remove all ufw chains and rules :
+https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1
