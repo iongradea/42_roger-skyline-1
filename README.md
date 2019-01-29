@@ -23,6 +23,8 @@ network configuration file :<br />
 => SSH<br />
 ssh configuration file :<br />
 /etc/ssh/sshd_config<br />
+Connection with ssh key (private) on port 40<br />
+ssh igradea@10.11.200.253 -p 40 -i id_rsa_rs1<br />
 
 => SERVICES<br />
 all services are located in /etc/init.d<br />
