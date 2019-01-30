@@ -8,18 +8,17 @@ iptables -P FORWARD DROP
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 
 iptables -A INPUT -p tcp --dport 40 -j ACCEPT 
 
-# Stop smurf attacks
-iptables -A INPUT -p icmp -m icmp --icmp-type address-mask-request -j DROP
-iptables -A INPUT -p icmp -m icmp --icmp-type timestamp-request -j DROP
-iptables -A INPUT -p icmp -m icmp -j DROP
-
 # Drop all invalid packets
 iptables -A INPUT -m state --state INVALID -j DROP
 iptables -A FORWARD -m state --state INVALID -j DROP
 iptables -A OUTPUT -m state --state INVALID -j DROP
 
-# Drop excessive RST packets to avoid smurf attacks
-iptables -A INPUT -p tcp -m tcp --tcp-flags RST RST -m limit --limit 2/second --limit-burst 2 -j ACCEPT
+# Stop DOS icmp flooding
+iptables -A INPUT -p icmp -m limit --limit 2/second --limit-burst 2 -j ACCEPT
+
+# Stop DOS SYN flooding
+iptables -A INPUT -p tcp -m state --state NEW -m limit --limit 2/second --limit-burst 2 -j ACCEPT
+# other option : iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
 
 # Attempt to block portscans
 # Anyone who tried to portscan us is locked out for an entire day.

@@ -11,7 +11,7 @@ WORKFLOW (packages installed, VM config) : <br />
 4. client : <br />
 	- ssh-keygen -f ~/.ssh/id_rsa_rs1 -t rsa -b 4096 <br />
 	- ssh-copy-id -i ~/.ssh/id_rsa_rs1.pub user@host <br />
-5. server : iptables <br />
+5. server : iptables, see config_files/fw_dos_portscan <br />
 
 TIPS FOR QUESTIONS : <br />
 
@@ -38,17 +38,14 @@ S = for starting service<br />
 number = sequence order for start or kill<br />
 symbolic link to the service in /etc/init.d<br />
 
-=> FIREWALL, DDOS, PORT SCANNING : <br />
-iptables -P INPUT DROP <br />
-iptables -P FORWARD DROP <br />
-sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT <br />
-iptables -A INPUT -p tcp --dport 40 -j ACCEPT <br />
-
-Sources docs :<br />
+=> Sources docs :<br />
 https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-iptables-on-ubuntu-14-04 <br />
 https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands <br />
 https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture <br />
 https://serverfault.com/questions/410604/iptables-rules-to-counter-the-most-common-dos-attacks <br />
+https://www.paloaltonetworks.com/cyberpedia/what-is-a-denial-of-service-attack-dos <br />
+ihttps://www.thegeekstuff.com/2011/06/iptables-rules-examples/?utm_source=feedburner <br />
+https://linoxide.com/firewall/block-common-attacks-iptables/ <br/>
 
 to remove all ufw chains and rules : <br />
 https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1 <br />
