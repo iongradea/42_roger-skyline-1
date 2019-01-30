@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Change policy to DROP for INPUT and FORWARD
+ptables -P INPUT DROP 
+iptables -P FORWARD DROP 
+
+# Allow established and related connection & tcp on port 40
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 
+iptables -A INPUT -p tcp --dport 40 -j ACCEPT 
+
+# Stop smurf attacks
+iptables -A INPUT -p icmp -m icmp --icmp-type address-mask-request -j DROP
+iptables -A INPUT -p icmp -m icmp --icmp-type timestamp-request -j DROP
+iptables -A INPUT -p icmp -m icmp -j DROP
+
+# Drop all invalid packets
+iptables -A INPUT -m state --state INVALID -j DROP
+iptables -A FORWARD -m state --state INVALID -j DROP
+iptables -A OUTPUT -m state --state INVALID -j DROP
+
+# Drop excessive RST packets to avoid smurf attacks
+iptables -A INPUT -p tcp -m tcp --tcp-flags RST RST -m limit --limit 2/second --limit-burst 2 -j ACCEPT
+
+# Attempt to block portscans
+# Anyone who tried to portscan us is locked out for an entire day.
+iptables -A INPUT   -m recent --name portscan --rcheck --seconds 86400 -j DROP
+iptables -A FORWARD -m recent --name portscan --rcheck --seconds 86400 -j DROP
