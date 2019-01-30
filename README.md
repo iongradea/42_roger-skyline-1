@@ -12,6 +12,7 @@ WORKFLOW (packages installed, VM config) : <br />
 	- ssh-keygen -f ~/.ssh/id_rsa_rs1 -t rsa -b 4096 <br />
 	- ssh-copy-id -i ~/.ssh/id_rsa_rs1.pub user@host <br />
 5. server : iptables, see config_files/fw_dos_portscan <br />
+	- sudo apt-get install iptables-persistent <br />
 
 TIPS FOR QUESTIONS : <br />
 
@@ -46,6 +47,7 @@ https://serverfault.com/questions/410604/iptables-rules-to-counter-the-most-comm
 https://www.paloaltonetworks.com/cyberpedia/what-is-a-denial-of-service-attack-dos <br />
 https://www.thegeekstuff.com/2011/06/iptables-rules-examples/?utm_source=feedburner <br />
 https://linoxide.com/firewall/block-common-attacks-iptables/ <br/>
+https://linuxconfig.org/how-to-make-iptables-rules-persistent-after-reboot-on-linux <br />
 
 to remove all ufw chains and rules : <br />
 https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1 <br />
