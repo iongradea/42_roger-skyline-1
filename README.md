@@ -44,7 +44,7 @@ https://www.digitalocean.com/community/tutorials/iptables-essentials-common-fire
 https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture <br />
 https://serverfault.com/questions/410604/iptables-rules-to-counter-the-most-common-dos-attacks <br />
 https://www.paloaltonetworks.com/cyberpedia/what-is-a-denial-of-service-attack-dos <br />
-ihttps://www.thegeekstuff.com/2011/06/iptables-rules-examples/?utm_source=feedburner <br />
+https://www.thegeekstuff.com/2011/06/iptables-rules-examples/?utm_source=feedburner <br />
 https://linoxide.com/firewall/block-common-attacks-iptables/ <br/>
 
 to remove all ufw chains and rules : <br />
