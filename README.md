@@ -44,6 +44,13 @@ S = for starting service<br />
 number = sequence order for start or kill<br />
 symbolic link to the service in /etc/init.d<br />
 
+=> VIRTUALBOX network configuration : <br />
+The network for the virtual machine can be either configured as NAT or Bridged <br />
+- NAT : creates an internal network for the machines in virtual box, can put any IP address for the machine <br />
+		It is necessary to configure a port forwarding to the IP of the machine (ip a) on a specific port <br />
+		to connect it to the network (external) <br />
+- Bridged : it is added to the network of the machines and can be connected with ssh to the IP of the machine <br />
+
 => Sources docs :<br />
 https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-iptables-on-ubuntu-14-04 <br />
 https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands <br />
