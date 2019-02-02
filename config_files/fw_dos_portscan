@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change policy to DROP for INPUT and FORWARD
-ptables -P INPUT DROP 
+iptables -P INPUT DROP 
 iptables -P FORWARD DROP 
 
 # Allow established and related connection & tcp on port 40
