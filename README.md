@@ -15,7 +15,9 @@ WORKFLOW (packages installed, VM config) : <br />
 	- sudo apt-get install iptables-persistent <br />
 	- iptables-save > /etc/iptables/rules.v4 <br />
 6. server : stop services <br />
-	- sudo /etc/init.d/SERVICE stop
+	- sudo /etc/init.d/SERVICE stop <br />
+7. & 8. server : cron for jobs (check modifications /etc/crontab and update packages) <br />
+	- modificatin at /etc/crontab <br />
 
 TIPS FOR QUESTIONS : <br />
 
