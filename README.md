@@ -14,10 +14,14 @@ WORKFLOW (packages installed, VM config) : <br />
 5. server : iptables, see config_files/fw_dos_portscan <br />
 	- sudo apt-get install iptables-persistent <br />
 	- iptables-save > /etc/iptables/rules.v4 <br />
+	- iptables -L -v -n (shows with verbose) <br />
 6. server : stop services <br />
 	- sudo /etc/init.d/SERVICE stop <br />
 7. & 8. server : cron for jobs (check modifications /etc/crontab and update packages) <br />
 	- modificatin at /etc/crontab <br />
+9. : install mail service : <br />
+	- apt-get install mailutils (install mail services SMTP, POP etc.) <br />
+	- dpkg-reconfigure exim4-config (this configures all mail services SMTP, POP etc. to access external mail) <br />
 
 TIPS FOR QUESTIONS : <br />
 
@@ -50,6 +54,9 @@ The network for the virtual machine can be either configured as NAT or Bridged <
 		It is necessary to configure a port forwarding to the IP of the machine (ip a) on a specific port <br />
 		to connect it to the network (external) <br />
 - Bridged : it is added to the network of the machines and can be connected with ssh to the IP of the machine <br />
+
+=> annex : to configure mail server, allow access with iptables to one of the ports for SMTP, IMAP, POP etc. <br />
+			configure a mail server listening on these ports <br />
 
 => Sources docs :<br />
 https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-iptables-on-ubuntu-14-04 <br />
