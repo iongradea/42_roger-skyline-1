@@ -13,6 +13,7 @@ WORKFLOW (packages installed, VM config) : <br />
 	- ssh-copy-id -i ~/.ssh/id_rsa_rs1.pub user@host <br />
 5. server : iptables, see config_files/fw_dos_portscan <br />
 	- sudo apt-get install iptables-persistent <br />
+	- iptables-save > /etc/iptables/rules.v4 <br />
 6. server : stop services <br />
 	- sudo /etc/init.d/SERVICE stop
 
