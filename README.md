@@ -19,9 +19,11 @@ WORKFLOW (packages installed, VM config) : <br />
 	- sudo /etc/init.d/SERVICE stop <br />
 7. & 8. server : cron for jobs (check modifications /etc/crontab and update packages) <br />
 	- modificatin at /etc/crontab <br />
-9. : install mail service : <br />
+9. install mail service : <br />
 	- apt-get install mailutils (install mail services SMTP, POP etc.) <br />
 	- dpkg-reconfigure exim4-config (this configures all mail services SMTP, POP etc. to access external mail) <br />
+10. web server : <br /> 
+	- apt install apache2 <br />
 
 TIPS FOR QUESTIONS : <br />
 
@@ -54,6 +56,13 @@ The network for the virtual machine can be either configured as NAT or Bridged <
 		It is necessary to configure a port forwarding to the IP of the machine (ip a) on a specific port <br />
 		to connect it to the network (external) <br />
 - Bridged : it is added to the network of the machines and can be connected with ssh to the IP of the machine <br />
+
+=> WEB SERVER : <br />
+- /etc/apache2 contains the configuration files for apache2 <br />
+	sites-available : config files for sites, to be disabled or enabled with the following command <br />
+	sudo a2dissite 000-default.conf, sudo a2ensite 000-default.conf <br />
+	000-default.conf and default-ssl.conf are the 2 default config files for the default apache2 page <br />
+- /var/www contains the different websites, the default one is in html with the server info page of apache2 <br />
 
 => annex : to configure mail server, allow access with iptables to one of the ports for SMTP, IMAP, POP etc. <br />
 			configure a mail server listening on these ports <br />
