@@ -74,8 +74,9 @@ The network for the virtual machine can be either configured as NAT or Bridged <
 - sudo apt-get install php-dev <br />
 - sudo apt-get install php libapache2-mod-php <br /> 
 
-### annex : to configure mail server, allow access with iptables to one of the ports for SMTP, IMAP, POP etc. <br />
-			configure a mail server listening on these ports <br />
+### annex : 
+to configure mail server, allow access with iptables to one of the ports for SMTP, IMAP, POP etc. <br />
+configure a mail server listening on these ports <br />
 
 ### Sources docs :<br />
 - https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-iptables-on-ubuntu-14-04 <br />
