@@ -78,19 +78,18 @@ The network for the virtual machine can be either configured as NAT or Bridged <
 			configure a mail server listening on these ports <br />
 
 ### Sources docs :<br />
-https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-iptables-on-ubuntu-14-04 <br />
-https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands <br />
-https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture <br />
-https://serverfault.com/questions/410604/iptables-rules-to-counter-the-most-common-dos-attacks <br />
-https://www.paloaltonetworks.com/cyberpedia/what-is-a-denial-of-service-attack-dos <br />
-https://www.thegeekstuff.com/2011/06/iptables-rules-examples/?utm_source=feedburner <br />
-https://linoxide.com/firewall/block-common-attacks-iptables/ <br/>
-https://linuxconfig.org/how-to-make-iptables-rules-persistent-after-reboot-on-linux <br />
-https://stackoverflow.com/questions/47691057/debian-9-the-php5-packages-is-not-installed <br />
-https://stackoverflow.com/questions/12142172/apache-shows-php-code-instead-of-executing <br />
-https://stackoverflow.com/questions/5004233/jquery-ajax-post-example-with-php <br />
-to remove all ufw chains and rules : <br />
-https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1 <br />
+- https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-using-iptables-on-ubuntu-14-04 <br />
+- https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands <br />
+- https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture <br />
+- https://serverfault.com/questions/410604/iptables-rules-to-counter-the-most-common-dos-attacks <br />
+- https://www.paloaltonetworks.com/cyberpedia/what-is-a-denial-of-service-attack-dos <br />
+- https://www.thegeekstuff.com/2011/06/iptables-rules-examples/?utm_source=feedburner <br />
+- https://linoxide.com/firewall/block-common-attacks-iptables/ <br/>
+- https://linuxconfig.org/how-to-make-iptables-rules-persistent-after-reboot-on-linux <br />
+- https://stackoverflow.com/questions/47691057/debian-9-the-php5-packages-is-not-installed <br />
+- https://stackoverflow.com/questions/12142172/apache-shows-php-code-instead-of-executing <br />
+- https://stackoverflow.com/questions/5004233/jquery-ajax-post-example-with-php <br />
+- to remove all ufw chains and rules : https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1 <br />
 
 ### Other interesting github : <br />
 https://github.com/romontei <br />
