@@ -78,6 +78,9 @@ The network for the virtual machine can be either configured as NAT or Bridged <
 ### Configure SSL <br />
 validate the ssl certificate documentation of, check the sources docs <br />
 
+### local mail address <br />
+/var/mail/LOGIN
+
 ### annex : 
 to configure mail server, allow access with iptables to one of the ports for SMTP, IMAP, POP etc. <br />
 configure a mail server listening on these ports <br />
