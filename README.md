@@ -32,6 +32,7 @@ see subject in subject_ressources ! <br />
 10. web server : <br /> 
 	- apt install apache2 <br />
 	- see sources docs for articles on installing php for apache on debian <br />
+11. configure ssl for web server <br />
 
 # TIPS FOR QUESTIONS : <br />
 
@@ -74,6 +75,9 @@ The network for the virtual machine can be either configured as NAT or Bridged <
 - sudo apt-get install php-dev <br />
 - sudo apt-get install php libapache2-mod-php <br /> 
 
+### Configure SSL <br />
+validate the ssl certificate documentation of, check the sources docs <br />
+
 ### annex : 
 to configure mail server, allow access with iptables to one of the ports for SMTP, IMAP, POP etc. <br />
 configure a mail server listening on these ports <br />
@@ -91,6 +95,7 @@ configure a mail server listening on these ports <br />
 - https://stackoverflow.com/questions/12142172/apache-shows-php-code-instead-of-executing <br />
 - https://stackoverflow.com/questions/5004233/jquery-ajax-post-example-with-php <br />
 - to remove all ufw chains and rules : https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1 <br />
+- ssl certificate : https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-debian-8 <br />
 
 ### Other interesting github : <br />
 https://github.com/romontei <br />
