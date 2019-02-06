@@ -89,7 +89,6 @@ https://linuxconfig.org/how-to-make-iptables-rules-persistent-after-reboot-on-li
 https://stackoverflow.com/questions/47691057/debian-9-the-php5-packages-is-not-installed <br />
 https://stackoverflow.com/questions/12142172/apache-shows-php-code-instead-of-executing <br />
 https://stackoverflow.com/questions/5004233/jquery-ajax-post-example-with-php <br />
-
 to remove all ufw chains and rules : <br />
 https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1 <br />
 
