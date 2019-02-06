@@ -1,3 +1,10 @@
+ROGER-SKYLINE-1 :<br/>
+
+Ce sujet est une initiation aux bases de l’administration système et réseau.<br />
+
+Ce projet permettera de procéder à l’installation d’une Virtual Machine, de découvrir les bases système et réseau ainsi que les nombreux services utilisés sur une machine serveur.<br />
+
+
 ISO SOURCE :<br />
 https://www.debian.org/CD/netinst/ <br />
 https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-netinst.iso<br />
@@ -24,6 +31,7 @@ WORKFLOW (packages installed, VM config) : <br />
 	- dpkg-reconfigure exim4-config (this configures all mail services SMTP, POP etc. to access external mail) <br />
 10. web server : <br /> 
 	- apt install apache2 <br />
+	- see sources docs for articles on installing php for apache on debian <br />
 
 TIPS FOR QUESTIONS : <br />
 
@@ -63,6 +71,7 @@ The network for the virtual machine can be either configured as NAT or Bridged <
 	sudo a2dissite 000-default.conf, sudo a2ensite 000-default.conf <br />
 	000-default.conf and default-ssl.conf are the 2 default config files for the default apache2 page <br />
 - /var/www contains the different websites, the default one is in html with the server info page of apache2 <br />
+- 
 
 => annex : to configure mail server, allow access with iptables to one of the ports for SMTP, IMAP, POP etc. <br />
 			configure a mail server listening on these ports <br />
@@ -76,6 +85,9 @@ https://www.paloaltonetworks.com/cyberpedia/what-is-a-denial-of-service-attack-d
 https://www.thegeekstuff.com/2011/06/iptables-rules-examples/?utm_source=feedburner <br />
 https://linoxide.com/firewall/block-common-attacks-iptables/ <br/>
 https://linuxconfig.org/how-to-make-iptables-rules-persistent-after-reboot-on-linux <br />
+https://stackoverflow.com/questions/47691057/debian-9-the-php5-packages-is-not-installed <br />
+https://stackoverflow.com/questions/12142172/apache-shows-php-code-instead-of-executing <br />
+https://stackoverflow.com/questions/5004233/jquery-ajax-post-example-with-php <br />
 
 to remove all ufw chains and rules : <br />
 https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1 <br />
