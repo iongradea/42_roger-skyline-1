@@ -71,7 +71,8 @@ The network for the virtual machine can be either configured as NAT or Bridged <
 	sudo a2dissite 000-default.conf, sudo a2ensite 000-default.conf <br />
 	000-default.conf and default-ssl.conf are the 2 default config files for the default apache2 page <br />
 - /var/www contains the different websites, the default one is in html with the server info page of apache2 <br />
-- 
+- sudo apt-get install php-dev <br />
+- sudo apt-get install php libapache2-mod-php <br /> 
 
 => annex : to configure mail server, allow access with iptables to one of the ports for SMTP, IMAP, POP etc. <br />
 			configure a mail server listening on these ports <br />
