@@ -8,8 +8,8 @@
 ## Error check
 #
 
-if [ $# != 2 ]; then
-	echo -e "$RED[ERROR]$END $CYAprovide server <USERNAME> and server <IP>$END" && exit
+if [ $# != 3 ]; then
+	echo -e "$RED[ERROR]$END $CYAprovide server <USERNAME>, <IP> and <PORT>$END" && exit
 fi
 
 ## Variables definition
@@ -17,6 +17,7 @@ fi
 
 USER=$1
 IP=$2
+PORT=$3
 SSH_KEY_PRI=id_rs1_opt
 SSH_KEY_PUB=$SSH_KEY_PRI.pub
 
@@ -30,7 +31,7 @@ ok_msg "launching main setup.sh ..."
 #ssh-keygen -f ~/.ssh/$SSH_KEY_PRI -t rsa -b 4096 
 ch_err
 ok_msg "ssh keys $SSH_KEY_PRI generated"
-ssh-copy-id -i ~/.ssh/$SSH_KEY_PUB $USER@$IP
+ssh-copy-id -i ~/.ssh/$SSH_KEY_PUB -p $PORT $USER@$IP
 ch_err
 ok_msg "ssh key $SSH_KEY_PUB copied to server"
 
@@ -38,7 +39,7 @@ ok_msg "ssh key $SSH_KEY_PUB copied to server"
 ##  ssh connection
 #
 
-scp -r ./* $USER@$IP:/home/$USER
+scp -rP $PORT ./* $USER@$IP:/home/$USER
 ch_err
 ok_msg "file in . copied to $USER@$IP:/home/$USER"
 

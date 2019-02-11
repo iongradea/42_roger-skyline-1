@@ -42,12 +42,24 @@ ok_msg "$USER added to root group and sudo"
 #
 sed -i.bak 's/allow-hotplug/auto/' /etc/network/interfaces
 ch_err
-sed -i.bak 's/dhcp/static\n\taddress 10.11.200.253\n\tnetmask 255.255.255.252\n\tgateway 10.11.254.254/' /etc/network/interfaces
+sed -i.bak2 's/dhcp/static\n\taddress 10.11.200.253\n\tnetmask 255.255.255.252\n\tgateway 10.11.254.254/' /etc/network/interfaces
 ch_err
 /etc/init.d/networking restart
+ch_err
+ok_msg "static dhcp configured for networking service"
 
+## Step4 : configure ssh on port 40 and prohibit root access
+#
 
-## Step final : remove ip provided by 42 dhcp server
+sed -i.bak 's/#Port 22/Port 40/' /etc/ssh/sshd_config
+ch_err
+sed -i.bak2 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
+ch_err
+/etc/init.d/ssh restart
+ch_err
+ok_msg "ssh service on port 40 configured"
+
+## Step final : remove ip provided by 42 dhcp server / it breaks the connection
 #
 
 echo -e "$RED[REMOVE MANUALLY OLD IP WITH 'ip addr del <IP> dev <INTERFACE>']$END"
