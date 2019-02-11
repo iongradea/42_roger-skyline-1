@@ -22,6 +22,7 @@ see subject in subject_ressources ! <br />
 	- sudo apt-get install iptables-persistent <br />
 	- iptables-save > /etc/iptables/rules.v4 <br />
 	- iptables -L -v -n (shows with verbose) <br />
+	- apt install portsentry <br />
 6. server : stop services <br />
 	- sudo /etc/init.d/SERVICE stop <br />
 7. & 8. server : cron for jobs (check modifications /etc/crontab and update packages) <br />
@@ -99,6 +100,9 @@ configure a mail server listening on these ports <br />
 - https://stackoverflow.com/questions/5004233/jquery-ajax-post-example-with-php <br />
 - to remove all ufw chains and rules : https://gist.github.com/funkjedi/88c31179d455b9c6edb2b31b9564ede1 <br />
 - ssl certificate : https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-debian-8 <br />
+- https://www.techrepublic.com/blog/10-things/10-iptables-rules-to-help-secure-your-linux-box/ <br />
+- https://www.digitalocean.com/community/tutorials/an-introduction-to-load-testing <br />
+- https://wiki.debian-fr.xyz/Portsentry <br />
 
 ### Other interesting github : <br />
 https://github.com/romontei <br />

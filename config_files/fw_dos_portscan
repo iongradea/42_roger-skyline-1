@@ -1,33 +1,77 @@
 #!/bin/bash
 
+## Reset tables configurations
+#
+
+echo "Reset tables configurations"
+
+# Flush all rules
+echo "   -- Flush iptable rules"
+iptables -F
+iptables -F -t nat
+iptables -F -t mangle
+iptables -F -t raw
+# Erase all non-default chains
+echo "   -- Erase all non-default chains"
+iptables -X
+iptables -X -t nat
+iptables -X -t mangle
+iptables -X -t raw
+
+## Initialization
+#
+
+echo "Initialization"
+
 # Change policy to DROP for INPUT and FORWARD
+echo "	-- Set policies"
 iptables -P INPUT DROP 
 iptables -P FORWARD DROP 
+iptables -P OUTPUT ACCEPT
 
 # Allow established and related connection & tcp on port 40
+echo "	-- Keep established connection"
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 
-iptables -A INPUT -p tcp --dport 40 -j ACCEPT 
 
 # Drop all invalid packets
+echo "	-- Drop invalid packets"
 iptables -A INPUT -m state --state INVALID -j DROP
 iptables -A FORWARD -m state --state INVALID -j DROP
 iptables -A OUTPUT -m state --state INVALID -j DROP
 
-# Stop DOS icmp flooding
-iptables -A INPUT -p icmp -m limit --limit 2/second --limit-burst 2 -j ACCEPT
+## DDoS protections
+#
 
-# Stop DOS SYN flooding
-iptables -A INPUT -p tcp -m state --state NEW -m limit --limit 2/second --limit-burst 2 -j ACCEPT
-# other option : iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+echo "DDOS Protection"
 
-# Attempt to block portscans
-# Anyone who tried to portscan us is locked out for an entire day.
-iptables -A INPUT   -m recent --name portscan --rcheck --seconds 86400 -j DROP
-iptables -A FORWARD -m recent --name portscan --rcheck --seconds 86400 -j DROP
+# Synflood protection
+echo "	-- Synflood protection"
+/sbin/iptables -A INPUT -p tcp --syn -m limit --limit 2/s --limit-burst 30 -j ACCEPT
+
+# Pingflood protection
+echo "	-- Pingflood protection"
+/sbin/iptables -A INPUT -p icmp --icmp-type echo-request -m limit --limit 1/s -j ACCEPT
+
+# Port scanning protection
+echo "	-- Portscanning protection"
+/sbin/iptables -A INPUT -p tcp --tcp-flags ALL NONE -m limit --limit 1/h -j ACCEPT
+/sbin/iptables -A INPUT -p tcp --tcp-flags ALL ALL -m limit --limit 1/h -j ACCEPT
+
+## Trafic configuration
+#
+
+echo "Trafic configuration"
+
+# Allow ssh on port 40
+echo "	-- Allow ssh on port 40"
+iptables -A INPUT -p tcp --dport 40 -j ACCEPT 
 
 # Allow HTTP
+echo "	-- Allow http connection on port 80"
 iptables -t filter -A OUTPUT -p tcp --dport 80 -j ACCEPT
 iptables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
+
 # Allow HTTPS
+echo "	-- Allow https connection on port 443"
 iptables -t filter -A OUTPUT -p tcp --dport 443 -j ACCEPT
 iptables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
