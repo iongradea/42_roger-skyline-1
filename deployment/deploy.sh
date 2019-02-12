@@ -21,6 +21,7 @@ CRON_PATH=/etc/cron.d
 CRON_UPDA=update_pckg
 CRON_CH=ch_crontab
 CRON_FOLDER=./cron
+CRON_D=cron.d
 
 main() {
 
@@ -67,8 +68,10 @@ ok_msg "ssh service on port 40 configured"
 ## Step5 : configure cron
 #
 
-cp $CRON_FOLDER/$CRON_CH $CRON_PATH
-cp $CRON_FOLDER/$CRON_UPDA $CRON_PATH
+cp $CRON_FOLDER/$CRON_D/$CRON_CH $CRON_PATH
+ch_err
+cp $CRON_FOLDER/$CRON_D/$CRON_UPDA $CRON_PATH
+ch_err
 
 if grep -E "$CRON_PATH/$CRON_UPDA" $CRONTAB | grep -v "@reboot"; then
 	ok_msg "cron update pckg already present"
@@ -93,6 +96,11 @@ else
 	ch_err
 	ok_msg "cron update pckg at reboot added"
 fi
+
+## Step7 : Web Server with ssl certificate
+#
+
+
 
 ## Step final : remove ip provided by 42 dhcp server / it breaks the connection
 #
