@@ -46,7 +46,7 @@ ok_msg "LAUNCHING MAIN DEPLOY.SH ...\n"
 ok_msg "\nINSTALLING PACKAGES ...\n"
 
 #apt install -y sudo apache2 portsentry mailutils vim iptables-persistent php-dev php libapache2-mod-php 
-apt install -y sudo vim mailutils apache2 php-dev php libapache2-mod-php
+apt install -y sudo vim mailutils apache2 php-dev php libapache2-mod-php iptables-persistent
 ch_err
 ok_msg "sudo, apache2, portsentry, mailutils, vim, iptables-persistent packages installed"
 
@@ -191,6 +191,7 @@ cp $CONF_APACHE/$CONF_AVAI/$CONF_SSL $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
 ch_err
 
 # Configuring ssl config files
+# WARNING: HARD CODED HERE !!!
 sed -i "s/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/rs1/" $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
 sed -i 's/ServerAdmin webmaster@localhost/ServerAdmin webmaster@localhost\nServerName localhost:443/' $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
 sed -i "s/SSLCertificateFile	\/etc\/ssl\/certs\/ssl-cert-snakeoil.pem/SSLCertificateFile \/etc\/apache2\/ssl\/$SSL_APACHE_CRT/" $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
@@ -204,6 +205,19 @@ ok_msg "$RS1_CONF_SSL enabled"
 /etc/init.d/apache2 restart
 ch_err
 ok_msg "apache2 service restart"
+
+
+## Step9 : Activate Firewall
+#
+
+ok_msg "\nACTIVATE FIREWALL ...\n"
+
+FW_DIR=firewall
+FW_FILE=fw_dos_portscan_2
+
+./$FW_DIR/$FW_FILE
+ch_err
+ok_msg "firewall set"
 
 ## Step final : remove ip provided by 42 dhcp server / it breaks the connection
 #

@@ -64,8 +64,8 @@ iptables -A RATE-LIMIT -p tcp --syn -j DROP
 echo "Trafic configuration"
 
 # closes all ports except ssh, 80, 443
-echo "	-- Opens  ports ssh (40), hhtp (80), https (443)"
-iptables -A INPUT -p tcp -m tcp -m multiport --dports 40,80,443 -j RATE-LIMIT
+echo "	-- Opens  ports ssh (40), https (443)"
+iptables -A INPUT -p tcp -m tcp -m multiport --dports 40,443 -j RATE-LIMIT
 iptables -A INPUT -p tcp --syn -m limit --limit 1/s --limit-burst 4 -j ACCEPT
 
 
