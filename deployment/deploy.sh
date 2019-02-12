@@ -33,6 +33,8 @@ CONF_SSL=default-ssl.conf
 SITE_DIR=/var/www
 SITE_RS1=rs1
 SITE_SRC=./site
+RS1_CONF=rs1.conf
+RS1_CONF_SSL=rs1-ssl.conf
 
 main() {
 
@@ -130,27 +132,23 @@ fi
 
 ok_msg "\nCONFIGURING WEB SERVER AND LAUNCHING SITE ...\n"
 
-# Web server variables
-#CONF_APACHE=/etc/apache2
-#CONF_AVAI=sites-available
-#CONF_FILE=000-default.conf
-#CONF_SSL=default-ssl.conf
-#SITE_DIR=/var/www
-#SITE_RS1=rs1
-#SITE_SRC=./site
-RS1_CONF=rs1.conf
-RS1_CONF_SSL=rs1-ssl.conf
-
+# Initialization by disabling site (80 and 443)
+a2dissite $RS1_CONF
+ch_err
+a2dissite $RS1_CONF_SSL
+ch_err
+ok_msg "initialisation"
 
 rm -rf $SITE_DIR/$SITE_RS1
 mkdir $SITE_DIR/$SITE_RS1
 cp -r $SITE_SRC/* $SITE_DIR/$SITE_RS1
+ok_msg "cleaning web server source directory"
 
 # Copy config from default files
 cp $CONF_APACHE/$CONF_AVAI/$CONF_FILE $CONF_APACHE/$CONF_AVAI/$RS1_CONF
-cp $CONF_APACHE/$CONF_AVAI/$CONF_SSL $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
 
-# Modify conf files 
+# Modify conf files
+# WARNING: HARD CODED HERE !!!
 sed -i 's/#ServerName www.example.com/ServerName localhost/' $CONF_APACHE/$CONF_AVAI/$RS1_CONF
 sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/rs1/' $CONF_APACHE/$CONF_AVAI/$RS1_CONF
 
@@ -162,6 +160,50 @@ ch_err
 /etc/init.d/apache2 restart
 ch_err
 ok_msg "web server configuration done"
+
+## Step8 : Activate ssl for web server
+#
+
+SSL_APACHE_DIR=/etc/apache2/ssl
+SSL_APACHE_KEY=apache.key
+SSL_APACHE_CRT=apache.crt
+
+ok_msg "\nCONFIGURING SSL ...\n"
+
+# Enable ssl
+a2enmod ssl
+ch_err
+ok_msg "ssl mode enabled for apache2"
+
+# Create ssl key directory for apache2
+rm -rf $SSL_APACHE_DIR
+mkdir $SSL_APACHE_DIR
+
+# Generate private key and certificate
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $SSL_APACHE_DIR/$SSL_APACHE_KEY -out $SSL_APACHE_DIR/$SSL_APACHE_CRT
+ch_err
+chmod 600 $SSL_APACHE_DIR/*
+ch_err
+ok_msg "ssl certificate and private key generated"
+
+# Copy config file for ssl
+cp $CONF_APACHE/$CONF_AVAI/$CONF_SSL $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
+ch_err
+
+# Configuring ssl config files
+sed -i "s/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/rs1/" $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
+sed -i 's/ServerAdmin webmaster@localhost/ServerAdmin webmaster@localhost\nServerName localhost:443/' $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
+sed -i "s/SSLCertificateFile	\/etc\/ssl\/certs\/ssl-cert-snakeoil.pem/SSLCertificateFile \/etc\/apache2\/ssl\/$SSL_APACHE_CRT/" $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
+sed -i "s/SSLCertificateKeyFile \/etc\/ssl\/private\/ssl-cert-snakeoil.key/SSLCertificateKeyFile \/etc\/apache2\/ssl\/$SSL_APACHE_KEY/" $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
+ok_msg "ssl conf file configured"
+
+a2ensite $RS1_CONF_SSL
+ch_err
+ok_msg "$RS1_CONF_SSL enabled"
+
+/etc/init.d/apache2 restart
+ch_err
+ok_msg "apache2 service restart"
 
 ## Step final : remove ip provided by 42 dhcp server / it breaks the connection
 #
