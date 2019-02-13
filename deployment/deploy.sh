@@ -38,15 +38,15 @@ RS1_CONF_SSL=rs1-ssl.conf
 
 main() {
 
-ok_msg "LAUNCHING MAIN DEPLOY.SH ...\n"
+echo -e "$CYA LAUNCHING MAIN DEPLOY.SH ...$END\n"
 
 ## Step1 : Install, initialization / logged as root
 #
 
-ok_msg "\nINSTALLING PACKAGES ...\n"
+echo -e "\n$CYA INSTALLING PACKAGES ...$END\n"
 
 #apt install -y sudo apache2 portsentry mailutils vim iptables-persistent php-dev php libapache2-mod-php 
-apt install -y sudo vim mailutils apache2 php-dev php libapache2-mod-php iptables-persistent
+apt install -y sudo vim mailutils apache2 php-dev php libapache2-mod-php iptables-persistent portsentry
 ch_err
 ok_msg "sudo, apache2, portsentry, mailutils, vim, iptables-persistent packages installed"
 
@@ -59,7 +59,7 @@ ok_msg "exim4-config configured"
 ## Step2 : add user to sudo group
 #
 
-ok_msg "\nUSER INITIALIZATION ...\n"
+echo -e "\n$CYA USER INITIALIZATION ...$END\n"
 
 adduser $USER sudo
 ch_err
@@ -70,7 +70,7 @@ ok_msg "$USER added to root group and sudo"
 ## Step3 : configure static dhcp with /30 mask
 #
 
-ok_msg "\nCONFIGURING DHCP ...\n"
+echo -e "\n$CYA CONFIGURING DHCP ...$END\n"
 
 sed -i.bak 's/allow-hotplug/auto/' /etc/network/interfaces
 ch_err
@@ -83,7 +83,7 @@ ok_msg "static dhcp configured for networking service"
 ## Step4 : configure ssh on port 40 and prohibit root access
 #
 
-ok_msg "\nCONFIGURING SSH SERVICE ...\n"
+echo -e "\n$CYA CONFIGURING SSH SERVICE ...$END\n"
 
 sed -i.bak 's/#Port 22/Port 40/' /etc/ssh/sshd_config
 ch_err
@@ -96,7 +96,7 @@ ok_msg "ssh service on port 40 configured"
 ## Step5 : configure cron
 #
 
-ok_msg "\nCONFIGURING CRON ...\n"
+echo -e "\n$CYA CONFIGURING CRON ...$END\n"
 
 cp $CRON_FOLDER/$CRON_D/$CRON_CH $CRON_PATH
 ch_err
@@ -130,7 +130,7 @@ fi
 ## Step7 : Web Server with ssl certificate
 #
 
-ok_msg "\nCONFIGURING WEB SERVER AND LAUNCHING SITE ...\n"
+echo -e "\n$CYA CONFIGURING WEB SERVER AND LAUNCHING SITE ...$END\n"
 
 # Initialization by disabling site (80 and 443)
 a2dissite $RS1_CONF
@@ -168,7 +168,7 @@ SSL_APACHE_DIR=/etc/apache2/ssl
 SSL_APACHE_KEY=apache.key
 SSL_APACHE_CRT=apache.crt
 
-ok_msg "\nCONFIGURING SSL ...\n"
+echo -e "\n$CYA CONFIGURING SSL ...$END\n"
 
 # Enable ssl
 a2enmod ssl
@@ -210,7 +210,7 @@ ok_msg "apache2 service restart"
 ## Step9 : Activate Firewall
 #
 
-ok_msg "\nACTIVATE FIREWALL ...\n"
+echo -e "\n$CYA ACTIVATE FIREWALL ...$END\n"
 
 FW_DIR=firewall
 FW_FILE=fw_dos_portscan_2
@@ -218,6 +218,27 @@ FW_FILE=fw_dos_portscan_2
 ./$FW_DIR/$FW_FILE
 ch_err
 ok_msg "firewall set"
+
+
+## Step10 : Activate portsentry against portscan
+#
+
+echo -e "\n$CYA ACTIVATE PORTSENTRY ...$END\n"
+
+PORTSENTRY_CONF_1=/etc/portsentry/portsentry.conf
+PORTSENTRY_CONF_2=/etc/default/portsentry
+
+sed -i 's#BLOCK_UDP="0"#BLOCK_UDP="1"#' $PORTSENTRY_CONF_1
+sed -i 's#BLOCK_TCP="0"#BLOCK_TCP="1"#' $PORTSENTRY_CONF_1
+ok_msg "$PORTSENTRY_CONF_1 configured"
+
+sed -i 's#TCP_MODE="tcp"#TCP_MODE="atcp"#' $PORTSENTRY_CONF_2
+sed -i 's#UDP_MODE="udp"#UDP_MODE="audp"#' $PORTSENTRY_CONF_2
+ok_msg "$PORTSENTRY_CONF_2 configured"
+
+/etc/init.d/portsentry restart
+ch_err
+ok_msg "Portsentry service restarted"
 
 ## Step final : remove ip provided by 42 dhcp server / it breaks the connection
 #
