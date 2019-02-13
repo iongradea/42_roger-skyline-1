@@ -79,6 +79,13 @@ The network for the virtual machine can be either configured as NAT or Bridged <
 ### Configure SSL <br />
 validate the ssl certificate documentation of, check the sources docs <br />
 
+### CONFIGURE PORTSENTRY<br />
+- see link below for configuration<br />
+- to remove from ip from banned list :<br />
+	- delete host from /etc/hosts.deny <br />
+	- remove host from route list where !H with the command ```ip route del <ip>``` <br />
+	
+
 ### local mail address <br />
 /var/mail/LOGIN
 
