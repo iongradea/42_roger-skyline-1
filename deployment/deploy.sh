@@ -8,33 +8,15 @@
 ## Error check 
 #
 
-if [ $# != 1 ]; then
-	echo -e "$RED[ERROR]$END$CYA provide <USERNAME> as first arg$END" && exit
+if [ $# != 2 ]; then
+	echo -e "$RED[ERROR]$END$CYA ./deploy.sh <USERNAME> <IP>$END" && exit
 fi
 
 ## Variables definition
 #
 
 USER=$1
-
-# Cron variables
-CRONTAB=/etc/crontab
-CRON_PATH=/etc/cron.d
-CRON_UPDA=update_pckg
-CRON_CH=ch_crontab
-CRON_FOLDER=./cron
-CRON_D=cron.d
-
-# Web server variables
-CONF_APACHE=/etc/apache2
-CONF_AVAI=sites-available
-CONF_FILE=000-default.conf
-CONF_SSL=default-ssl.conf
-SITE_DIR=/var/www
-SITE_RS1=rs1
-SITE_SRC=./site
-RS1_CONF=rs1.conf
-RS1_CONF_SSL=rs1-ssl.conf
+IP=$2
 
 main() {
 
@@ -74,7 +56,7 @@ echo -e "\n$CYA CONFIGURING DHCP ...$END\n"
 
 sed -i.bak 's/allow-hotplug/auto/' /etc/network/interfaces
 ch_err
-sed -i.bak2 's/dhcp/static\n\taddress 10.11.200.253\n\tnetmask 255.255.255.252\n\tgateway 10.11.254.254/' /etc/network/interfaces
+sed -i.bak2 "s/dhcp/static\n\taddress $IP\n\tnetmask 255.255.255.252\n\tgateway 10.11.254.254/" /etc/network/interfaces
 ch_err
 /etc/init.d/networking restart
 ch_err
@@ -97,6 +79,14 @@ ok_msg "ssh service on port 40 configured"
 #
 
 echo -e "\n$CYA CONFIGURING CRON ...$END\n"
+
+# Cron variables
+CRONTAB=/etc/crontab
+CRON_PATH=/etc/cron.d
+CRON_UPDA=update_pckg
+CRON_CH=ch_crontab
+CRON_FOLDER=./cron
+CRON_D=cron.d
 
 cp $CRON_FOLDER/$CRON_D/$CRON_CH $CRON_PATH
 ch_err
@@ -132,12 +122,16 @@ fi
 
 echo -e "\n$CYA CONFIGURING WEB SERVER AND LAUNCHING SITE ...$END\n"
 
-# Initialization by disabling site (80 and 443)
-a2dissite $RS1_CONF
-ch_err
-a2dissite $RS1_CONF_SSL
-ch_err
-ok_msg "initialisation"
+# Web server variables
+CONF_APACHE=/etc/apache2
+CONF_AVAI=sites-available
+CONF_FILE=000-default.conf
+CONF_SSL=default-ssl.conf
+SITE_DIR=/var/www
+SITE_RS1=rs1
+SITE_SRC=./site
+RS1_CONF=rs1.conf
+RS1_CONF_SSL=rs1-ssl.conf
 
 rm -rf $SITE_DIR/$SITE_RS1
 mkdir $SITE_DIR/$SITE_RS1
@@ -146,6 +140,18 @@ ok_msg "cleaning web server source directory"
 
 # Copy config from default files
 cp $CONF_APACHE/$CONF_AVAI/$CONF_FILE $CONF_APACHE/$CONF_AVAI/$RS1_CONF
+ch_err
+# Copy config file for ssl
+cp $CONF_APACHE/$CONF_AVAI/$CONF_SSL $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
+ch_err
+ok_msg "config files copied"
+
+# Initialization by disabling site (80 and 443)
+a2dissite $RS1_CONF
+ch_err
+a2dissite $RS1_CONF_SSL
+ch_err
+ok_msg "initialisation"
 
 # Modify conf files
 # WARNING: HARD CODED HERE !!!
@@ -185,10 +191,6 @@ ch_err
 chmod 600 $SSL_APACHE_DIR/*
 ch_err
 ok_msg "ssl certificate and private key generated"
-
-# Copy config file for ssl
-cp $CONF_APACHE/$CONF_AVAI/$CONF_SSL $CONF_APACHE/$CONF_AVAI/$RS1_CONF_SSL
-ch_err
 
 # Configuring ssl config files
 # WARNING: HARD CODED HERE !!!
