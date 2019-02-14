@@ -11,6 +11,15 @@ https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-net
 
 see subject in subject_ressources ! <br />
 
+# DEPLOYMENT : <br />
+All deployment files are found in the deployment folder.<br />
+setup.sh is used to send the deployment folder to the virtual machine <br />
+deploy.sh is used to actually install, configure and deploy every service on the virtual machine <br />
+### Disclaimer : <br />
+The deployment files are much clearer than the readme below that was used as a first step and guideline for the project. <br />
+Don't judge me :) <br />
+
+
 # WORKFLOW (packages installed, VM config) : <br />
 1. server : apt-get install sudo <br />
 2. server : add igradea to sudo and root groups <br />
